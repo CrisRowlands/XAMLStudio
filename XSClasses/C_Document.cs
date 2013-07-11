@@ -1,0 +1,217 @@
+﻿using System.Collections.Generic;
+using System.Net;
+using System.Text.RegularExpressions;
+
+namespace XSClasses
+{
+    //public class CXMLProperty
+    //{
+    //    public CXMLProperty(string name, string html)
+    //    {
+    //        PropertyName = name;
+    //        OriginalString = html;
+    //        PropertyValue = CXMLHelper.GetProperty(name, html);
+    //    }
+
+    //    public string OriginalString { get; private set; }
+    //    public string PropertyName { get; private set; }
+    //    public string PropertyValue { get; private set; }
+    //}
+
+    public class C_Element
+    {
+        public C_Element(string name, string html, C_ElementType tagtype)
+        {
+            ElementName = name;
+            OriginalString = html;
+            ElementType = tagtype;
+        }
+
+        public string OriginalString
+        {
+            get;
+            private set;
+        }
+        public string ElementName
+        {
+            get;
+            private set;
+        }
+        public C_ElementType ElementType
+        {
+            get;
+            private set;
+        }
+
+        //public List<CXMLProperty> Properties { get; private set; }
+    }
+
+    public class C_Document
+    {
+        public C_Document Parse(string html)
+        {
+            List<C_Element> elementList = new List<C_Element>();
+
+            foreach (char c in html.ToCharArray())
+            {
+                #region START OF TAG
+
+                if (c == '<')
+                {
+                    InsideTag = true;
+
+                    if (TextString.Trim().Length != 0)
+                    {
+                        elementList.Add(new C_Element("Content", TextString, C_ElementType.text));
+                        TextString = string.Empty;
+                    }
+
+                    continue;
+                }
+
+                #endregion
+
+                #region END OF TAG
+
+                if (c == '>')
+                {
+                    InsideTag = false;
+                    TagString = TagString.Trim();
+
+                    if (TagString.Length != 0)
+                    {
+                        elementList.Add(new C_Element(C_Helper.GetTag(TagString), TagString, C_ElementType.tag));
+                        TagString = string.Empty;
+                    }
+
+                    continue;
+                }
+
+                #endregion
+
+                #region BUILD STRINGS
+
+                if (InsideTag)
+                {
+                    TagString += c;
+                }
+                else
+                {
+                    TextString += c;
+                }
+
+                #endregion
+            }
+
+            return new C_Document
+            {
+                Elements = elementList,
+                OriginalString = html,
+            };
+        }
+        public List<C_Element> Elements
+        {
+            get;
+            private set;
+        }
+        public string OriginalString
+        {
+            get;
+            private set;
+        }
+
+        #region VARS
+        private bool InsideTag = false;
+        private string TextString = string.Empty;
+        private string TagString = string.Empty;
+        #endregion
+    }
+
+    public static class C_Helper
+    {
+        public static string GetProperty(string PropertyName, string StringToTest)
+        {
+            if (StringToTest.Contains(PropertyName))
+            {
+                try
+                {
+                    int TagIndex = StringToTest.IndexOf(PropertyName);
+                    int StartIndex = StringToTest.IndexOf("\"", TagIndex) + 1;
+                    int EndIndex = StringToTest.IndexOf("\"", StartIndex);
+
+                    return StringToTest.Substring(StartIndex, EndIndex - StartIndex);
+                }
+                catch
+                {
+                    int TagIndex = StringToTest.IndexOf(PropertyName);
+                    int StartIndex = StringToTest.IndexOf("\'", TagIndex) + 1;
+                    int EndIndex = StringToTest.IndexOf("\'", StartIndex);
+
+                    return StringToTest.Substring(StartIndex, EndIndex - StartIndex);
+                }
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+        public static string GetTag(string StringToTest)
+        {
+            int i;
+
+            if (StringToTest.Contains(" "))
+            {
+                i = StringToTest.IndexOf(" ");
+                return StringToTest.Substring(0, i + 1).Trim();
+            }
+            else
+            {
+                return StringToTest.Trim();
+            }
+        }
+        public static string RemoveEncoding(string html)
+        {
+            try
+            {
+                string temp = Regex.Replace(html.
+                    Replace("&ndash;", "-").
+                    Replace("&nbsp;", " ").
+                    Replace("&rsquo;", "'").
+                    Replace("&amp;", "&").
+                    Replace("&#038;", "&").
+                    Replace("&quot;", "\"").
+                    Replace("&#039;", "'").
+                    Replace("&#8230;", "...").
+                    Replace("&#8212;", "—").
+                    Replace("&#8211;", "-").
+                    Replace("&#8220;", "“").
+                    Replace("&#8221;", "”").
+                    Replace("&#8217;", "'").
+                    Replace("&#160;", " ").
+                    Replace("&gt;", ">").
+                    Replace("&rdquo;", "\"").
+                    Replace("&ldquo;", "\"").
+                    Replace("&lt;", "<").
+                    Replace("&#215;", "×").
+                    Replace("&#8242;", "′").
+                    Replace("&#8243;", "″").
+                    Replace("&#8216;", "'"),
+                    "<[^<>]+>", string.Empty);
+
+                temp = HttpUtility.HtmlDecode(temp);
+
+                return temp;
+            }
+            catch
+            {
+                return html;
+            }
+        }
+    }
+
+    public enum C_ElementType
+    {
+        text,
+        tag
+    }
+}

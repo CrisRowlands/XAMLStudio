@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="XSClasses.XSPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Opacity="0"
+             Margin="22,0,13,0"
+             d:DesignHeight="560" 
+             d:DesignWidth="300">
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Image x:Name="Img_Screenshot" />
+
+        <TextBlock x:Name="TxtBlock_Name"
+                   FontFamily="Segoe WP Light"
+                   Text="FileName"
+                   FontSize="25"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Grid.Row="1" 
+                   Foreground="{StaticResource PhoneForegroundBrush}" />
+    </Grid>
+
+</UserControl>
