@@ -26,6 +26,10 @@ namespace XSClasses
         {
             return Files[Name];
         }
+        public static string GetXAML(string Name)
+        {
+            return Files[Name].XAML;
+        }
 
         public static void CreateFile(string Template, string Name)
         {

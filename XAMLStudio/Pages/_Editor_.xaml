@@ -9,7 +9,7 @@
         <Grid x:Name="Base_Grid_"
               Tag="Base_"/>
         <Grid x:Name="EditorGrid"
-              Visibility="Visible"
+              Visibility="Collapsed"
               Background="{StaticResource PhoneBackgroundBrush}">
             <Rectangle Opacity="0.5"
                        Fill="{StaticResource PhoneAccentBrush}" />
