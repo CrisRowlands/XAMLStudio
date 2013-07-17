@@ -59,15 +59,18 @@ namespace XAMLStudio
         {
             if (Orientation == PageOrientation.PortraitUp)
             {
-                stk_files.Margin = new Thickness(0, 0, 0, 72);
+                txt_nofiles.Margin = new Thickness(30, 30, 0, 0);
+                stk_files.Margin = new Thickness(30, 0, 0, 72);
             }
             if (Orientation == PageOrientation.LandscapeLeft)
             {
-                stk_files.Margin = new Thickness(0, 0, 72, 0);
+                txt_nofiles.Margin = new Thickness(30, 30, 102, 0);
+                stk_files.Margin = new Thickness(30, 0, 72, 0);
             }
             if (Orientation == PageOrientation.LandscapeRight)
             {
-                stk_files.Margin = new Thickness(72, 0, 0, 0);
+                txt_nofiles.Margin = new Thickness(102, 30, 0, 0);
+                stk_files.Margin = new Thickness(102, 0, 0, 0);
             }
         }
 
