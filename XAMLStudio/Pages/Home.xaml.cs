@@ -3,10 +3,8 @@ using Microsoft.Phone.Shell;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using XSClasses;
 
@@ -94,7 +92,7 @@ namespace XAMLStudio
                 foreach (XSFile xsf in FileManager.Files.Values)
                 {
                     XSPage xspi = new XSPage();
-                    xspi.Load(xsf.FileName, xsf.ScreenShot);
+                    xspi.Load(xsf.FileName, xsf.ScreenShot, DeleteRefresh);
                     stk_files.Children.Add(xspi);
                 }
 
@@ -147,6 +145,21 @@ namespace XAMLStudio
             }
         }
 
+        private void DeleteRefresh(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            DispatcherTimer dt = new DispatcherTimer
+            {
+                Interval = new TimeSpan(0, 0, 0, 0, 300)
+            };
+            dt.Tick += deleteTick;
+            dt.Start();
+        }
+        private void deleteTick(object sender, EventArgs e)
+        {
+            (sender as DispatcherTimer).Stop();
+            LoadFiles();
+        }
+
         #endregion
         #region APPBAR
         private void InitAppBar()
@@ -197,15 +210,19 @@ namespace XAMLStudio
             {
                 if (txt_name.Text.Trim() == "")
                 {
-                    MessageBox.Show("File name can't be empty.", "Error.", MessageBoxButton.OK);
+                    MessageBox.Show("File name can't be empty.\nThat would just be silly.", "Error.", MessageBoxButton.OK);
                     return;
                 }
                 if (!FileManager.CheckCharacters(txt_name.Text))
                 {
-                    MessageBox.Show("File name can't include symbols.", "Error.", MessageBoxButton.OK);
+                    MessageBox.Show("File names can't include symbols.\nIt messes up file creation.", "Error.", MessageBoxButton.OK);
                     return;
                 }
-
+                if (FileManager.FileExists(txt_name.Text))
+                {
+                    MessageBox.Show("This file name already exists.\nPlease choose another one.", "Error.", MessageBoxButton.OK);
+                    return;
+                }
                 FileName = txt_name.Text;
                 AnimateTemplateIn.Begin();
             }

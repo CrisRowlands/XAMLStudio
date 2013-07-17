@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
              mc:Ignorable="d"
              Opacity="0"
-             Margin="22,0,13,0"
+             Margin="0,0,30,0"
              d:DesignHeight="560" 
              d:DesignWidth="300">
 
@@ -26,6 +27,16 @@
                    HorizontalAlignment="Left"
                    Grid.Row="1" 
                    Foreground="{StaticResource PhoneForegroundBrush}" />
+        
+        <telerikPrimitives:RadContextMenu.ContextMenu>
+            <telerikPrimitives:RadContextMenu x:Name="Context_Menu"
+                                              IsFadeEnabled="True"
+                                              IsZoomEnabled="False">
+                <telerikPrimitives:RadContextMenuItem Content="Pin" 
+                                                      Tap="PinClick"/>
+            </telerikPrimitives:RadContextMenu>
+        </telerikPrimitives:RadContextMenu.ContextMenu>
+
     </Grid>
 
 </UserControl>

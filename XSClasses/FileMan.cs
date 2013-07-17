@@ -94,6 +94,8 @@ namespace XSClasses
                         MyStorage.DeleteFile("Shared/ShellContent/" + Name + ".jpg");
                     }
                 }
+
+                PinManager.UnPinPage(Name);
             }
         }
         public static void ClearFiles()

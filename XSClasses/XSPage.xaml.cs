@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using Telerik.Windows.Controls;
 
 namespace XSClasses
 {
@@ -30,7 +31,16 @@ namespace XSClasses
             InitializeComponent();
             this.Loaded += XSPage_Loaded;
             this.Unloaded += XSPage_UnLoaded;
+            this.Tap += XSPage_Tap;
             Resize();
+        }
+
+        private void XSPage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (TxtBlock_Name.Text != null || TxtBlock_Name.Text != string.Empty)
+            {
+                CurrentPage.NavigationService.Navigate(new Uri("/Pages/_Editor_.xaml?p=" + TxtBlock_Name.Text, UriKind.Relative));
+            }
         }
         private void XSPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -72,12 +82,22 @@ namespace XSClasses
                 this.Height = 410;
             }
         }
-        public void Load(string name, BitmapImage screenshot)
+        public void Load(string name, BitmapImage screenshot, EventHandler<System.Windows.Input.GestureEventArgs> handle)
         {
             this.TxtBlock_Name.Text = name;
             this.Img_Screenshot.Source = screenshot;
+
+            RadContextMenuItem Context_Menu_Delete = new RadContextMenuItem
+            {
+                Content = "Delete"
+            };
+            Context_Menu_Delete.Tap += handle;
+            Context_Menu_Delete.Tap += Context_Menu_Delete_Tap;
+            this.Context_Menu.Items.Add(Context_Menu_Delete);
+
             AnimateIn.Begin();
         }
+
         private Storyboard AnimateIn
         {
             get
@@ -109,6 +129,13 @@ namespace XSClasses
                 return FadeInStoryboard;
             }
         }
-
+        private void PinClick(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            PinManager.PinPage(TxtBlock_Name.Text);
+        }
+        private void Context_Menu_Delete_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            FileManager.DeleteFile(TxtBlock_Name.Text);
+        }
     }
 }

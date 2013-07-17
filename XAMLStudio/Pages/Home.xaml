@@ -28,7 +28,8 @@
 					  VerticalScrollBarVisibility="Disabled"
 					  HorizontalScrollBarVisibility="Auto">
             <StackPanel Orientation="Horizontal"
-                        x:Name="stk_files">
+                        x:Name="stk_files"
+                        Margin="30,0,0,0">
             </StackPanel>
         </ScrollViewer>
         

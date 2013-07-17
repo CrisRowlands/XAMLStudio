@@ -11,7 +11,7 @@ namespace XSClasses
         private static Uri BackgroundImageUri = new Uri("/Images/Secondary/M.png", UriKind.Relative);
         private static Uri SmallBackgroundImageUri = new Uri("/Images/Secondary/S.png", UriKind.Relative);
 
-        public static void PinLevel(string _Name)
+        public static void PinPage(string _Name)
         {
             Uri TileUri = new Uri("/Pages/_Editor_.xaml?p=" + _Name, UriKind.Relative);
             Uri BackBackgroundImageUri = new Uri("isostore:\\Shared\\ShellContent\\" + _Name + ".jpg", UriKind.Absolute);
@@ -30,7 +30,16 @@ namespace XSClasses
             }
             else
             {
-                MessageBox.Show("It's already pinned.", "I can't do that.", MessageBoxButton.OK);
+                MessageBox.Show("It's already pinned.\nNo need to pin it again, right?", "I can't do that.", MessageBoxButton.OK);
+            }
+        }
+        public static void UnPinPage(string _Name)
+        {
+            Uri TileUri = new Uri("/Pages/_Editor_.xaml?p=" + _Name, UriKind.Relative);
+
+            if (GetTile("/Pages/_Editor_.xaml?p=" + _Name) != null)
+            {
+                GetTile("/Pages/_Editor_.xaml?p=" + _Name).Delete();
             }
         }
         private static ShellTile GetTile(string _TileURI)
