@@ -27,8 +27,6 @@ namespace XAMLStudio
             btn_panorama.Click += Btn_Template_Click;
             btn_empty.Click += Btn_Template_Click;
             btn_basic.Click += Btn_Template_Click;
-
-            InitAppBar();
         }
         private void Home_Loaded(object sender, RoutedEventArgs e)
         {
@@ -165,23 +163,6 @@ namespace XAMLStudio
 
         #endregion
         #region APPBAR
-        private void InitAppBar()
-        {
-            NewButton.Click += NewClick;
-            ResourceButton.Click += ResourceClick;
-            AboutButton.Click += AboutClick;
-            SettingsButton.Click += SettingsClick;
-
-            ApplicationBar.Buttons.Add(NewButton);
-            ApplicationBar.MenuItems.Add(ResourceButton);
-            ApplicationBar.MenuItems.Add(AboutButton);
-            ApplicationBar.MenuItems.Add(SettingsButton);
-        }
-
-        private ApplicationBarIconButton NewButton = new ApplicationBarIconButton { IconUri = new Uri("/Images/Icons/appbar.add.rest.png", UriKind.Relative), Text = "new" };
-        private ApplicationBarMenuItem ResourceButton = new ApplicationBarMenuItem { Text = "resources" };
-        private ApplicationBarMenuItem AboutButton = new ApplicationBarMenuItem { Text = "about" };
-        private ApplicationBarMenuItem SettingsButton = new ApplicationBarMenuItem { Text = "settings" };
 
         private void NewClick(object sender, EventArgs e)
         {
@@ -197,10 +178,6 @@ namespace XAMLStudio
         private void AboutClick(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Pages/About.xaml", UriKind.Relative));
-        }
-        private void SettingsClick(object sender, EventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/Pages/Settings.xaml", UriKind.Relative));
         }
 
         #endregion

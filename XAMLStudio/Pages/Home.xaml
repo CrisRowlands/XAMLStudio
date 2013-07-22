@@ -31,7 +31,7 @@
                         x:Name="stk_files">
             </StackPanel>
         </ScrollViewer>
-        
+
         <Rectangle x:Name="rect_back"
 				   Fill="{StaticResource PhoneSemitransparentBrush}"
 				   Opacity="0"
@@ -125,7 +125,20 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar Opacity="0.99"/>
+        <shell:ApplicationBar Opacity="0.99">
+            <shell:ApplicationBar.Buttons>
+                <shell:ApplicationBarIconButton IconUri="/Images/Icons/appbar.add.rest.png" 
+                                                Text="new"
+                                                Click="NewClick"/>
+            </shell:ApplicationBar.Buttons>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="resources"
+                                              Click="ResourceClick"/>
+                <shell:ApplicationBarMenuItem Text="about"
+                                              Click="AboutClick"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+
     </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
