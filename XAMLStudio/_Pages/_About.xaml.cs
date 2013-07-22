@@ -3,13 +3,14 @@ using Microsoft.Phone.Tasks;
 using System;
 using System.Windows;
 
-namespace XAMLStudio.Pages
+namespace XAMLStudio._Pages
 {
-    public partial class About : PhoneApplicationPage
+    public partial class _About : PhoneApplicationPage
     {
-        public About()
+        public _About()
         {
             InitializeComponent();
+            txt_version.Text = "Version " + new System.Reflection.AssemblyName(System.Reflection.Assembly.GetExecutingAssembly().FullName).Version.ToString();
         }
 
         private void AppsClick(object sender, RoutedEventArgs e)

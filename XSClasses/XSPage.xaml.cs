@@ -1,4 +1,5 @@
 ﻿using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,7 +40,7 @@ namespace XSClasses
         {
             if (TxtBlock_Name.Text != null || TxtBlock_Name.Text != string.Empty)
             {
-                CurrentPage.NavigationService.Navigate(new Uri("/Pages/_Editor_.xaml?p=" + TxtBlock_Name.Text, UriKind.Relative));
+                CurrentPage.NavigationService.Navigate(new Uri("/_Pages/_Editor.xaml?p=" + TxtBlock_Name.Text, UriKind.Relative));
             }
         }
         private void XSPage_Loaded(object sender, RoutedEventArgs e)
@@ -131,7 +132,7 @@ namespace XSClasses
         }
         private void PinClick(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            PinManager.PinPage(TxtBlock_Name.Text);
+            PinManager.PinPage(this.TxtBlock_Name.Text);
         }
         private void Context_Menu_Delete_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {

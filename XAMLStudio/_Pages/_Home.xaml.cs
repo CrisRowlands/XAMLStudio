@@ -10,11 +10,11 @@ using XSClasses;
 
 namespace XAMLStudio
 {
-    public partial class Home : PhoneApplicationPage
+    public partial class _Home : PhoneApplicationPage
     {
         #region MAIN
 
-        public Home()
+        public _Home()
         {
             InitializeComponent();
             this.Loaded += Home_Loaded;
@@ -173,11 +173,11 @@ namespace XAMLStudio
         }
         private void ResourceClick(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Pages/Sources.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/_Pages/_Sources.xaml", UriKind.Relative));
         }
         private void AboutClick(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Pages/About.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/_Pages/_About.xaml", UriKind.Relative));
         }
 
         #endregion

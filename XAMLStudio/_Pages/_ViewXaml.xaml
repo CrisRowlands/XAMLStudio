@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage x:Class="XAMLStudio.Pages.Sources"
+﻿<phone:PhoneApplicationPage x:Class="XAMLStudio._Pages._ViewXaml"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -14,7 +14,7 @@
 
         <TextBlock Margin="21,0,0,0"
                    FontSize="70"
-                   Text="resources"/>
+                   Text="xaml"/>
 
         <StackPanel Margin="12,100,0,0">
 

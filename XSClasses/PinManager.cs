@@ -2,49 +2,42 @@
 using System;
 using System.Linq;
 using System.Windows;
-using Telerik.Windows.Controls;
 
 namespace XSClasses
 {
     public static class PinManager
     {
-        private static Uri BackgroundImageUri = new Uri("/Images/Secondary/M.png", UriKind.Relative);
-        private static Uri SmallBackgroundImageUri = new Uri("/Images/Secondary/S.png", UriKind.Relative);
-
-        public static void PinPage(string _Name)
+        public static void PinPage(string _FileName)
         {
-            Uri TileUri = new Uri("/Pages/_Editor_.xaml?p=" + _Name, UriKind.Relative);
-            Uri BackBackgroundImageUri = new Uri("isostore:\\Shared\\ShellContent\\" + _Name + ".jpg", UriKind.Absolute);
-
-            if (GetTile("/Pages/_Editor_.xaml?p=" + _Name) == null)
+            if (!PinManager.TileExists(_FileName))
             {
-                RadFlipTileData TileData = new RadFlipTileData()
+                ShellTile.Create(new Uri("/_Pages/_Editor.xaml?p=" + _FileName, UriKind.Relative), new FlipTileData
                 {
-                    Title = _Name,
-                    BackgroundImage = BackgroundImageUri,
-                    SmallBackgroundImage = SmallBackgroundImageUri,
-                    BackBackgroundImage = BackBackgroundImageUri
-                };
-
-                LiveTileHelper.CreateTile(TileData, TileUri, false);
+                    Title = _FileName,
+                    BackBackgroundImage = new Uri("isostore:\\Shared\\ShellContent\\" + _FileName + ".jpg", UriKind.Absolute),
+                    BackgroundImage = new Uri("/Images/Secondary/M.png", UriKind.Relative),
+                    SmallBackgroundImage = new Uri("/Images/Secondary/S.png", UriKind.Relative)
+                }, false);
             }
             else
             {
-                MessageBox.Show("It's already pinned.\nNo need to pin it again, right?", "I can't do that.", MessageBoxButton.OK);
+                MessageBox.Show("It's already pinned.", "I can't do that.", MessageBoxButton.OK);
             }
         }
-        public static void UnPinPage(string _Name)
+        public static void UnPinPage(string _FileName)
         {
-            Uri TileUri = new Uri("/Pages/_Editor_.xaml?p=" + _Name, UriKind.Relative);
+            Uri TileUri = new Uri("/_Pages/_Editor.xaml?p=" + _FileName, UriKind.Relative);
 
-            if (GetTile("/Pages/_Editor_.xaml?p=" + _Name) != null)
+            if (!TileExists(_FileName))
             {
-                GetTile("/Pages/_Editor_.xaml?p=" + _Name).Delete();
+                ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("p=" + _FileName)).Delete();
             }
         }
-        private static ShellTile GetTile(string _TileURI)
+        private static bool TileExists(string _FileName)
         {
-            return ShellTile.ActiveTiles.FirstOrDefault(tile => tile.NavigationUri.ToString().Contains(_TileURI));
+            ShellTile TileToCheck = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("p=" + _FileName));
+
+            return (TileToCheck != null);
         }
     }
 }

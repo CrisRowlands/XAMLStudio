@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage x:Class="XAMLStudio.Pages.About"
+﻿<phone:PhoneApplicationPage x:Class="XAMLStudio._Pages._About"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -17,7 +17,8 @@
                    Text="about"/>
 
         <StackPanel Margin="22,100,0,0">
-            <TextBlock Text="Version 1.0.0.0" 
+            <TextBlock Text="Version"
+                       x:Name="txt_version"
                        FontSize="24"
                        Foreground="{StaticResource PhoneSubtleBrush}"/>
             <TextBlock Text="I always wanted to be able to work on apps while out &amp; about, so I made this app so I could. XAMLStudio is a UI IDE for Windows Phone, enabling developers to create their app UIs on the go!" 

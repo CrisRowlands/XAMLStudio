@@ -94,20 +94,20 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\_Editor_.xaml.cs">
-      <DependentUpon>_Editor_.xaml</DependentUpon>
+    <Compile Include="_Pages\_Editor.xaml.cs">
+      <DependentUpon>_Editor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
+    <Compile Include="_Pages\_Home.xaml.cs">
+      <DependentUpon>_Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\About.xaml.cs">
-      <DependentUpon>About.xaml</DependentUpon>
+    <Compile Include="_Pages\_About.xaml.cs">
+      <DependentUpon>_About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Sources.xaml.cs">
-      <DependentUpon>Sources.xaml</DependentUpon>
+    <Compile Include="_Pages\_Sources.xaml.cs">
+      <DependentUpon>_Sources.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ViewXaml.xaml.cs">
-      <DependentUpon>ViewXaml.xaml</DependentUpon>
+    <Compile Include="_Pages\_ViewXaml.xaml.cs">
+      <DependentUpon>_ViewXaml.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -116,23 +116,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="Pages\_Editor_.xaml">
+    <Page Include="_Pages\_Editor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Home.xaml">
+    <Page Include="_Pages\_Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\About.xaml">
+    <Page Include="_Pages\_About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Sources.xaml">
+    <Page Include="_Pages\_Sources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ViewXaml.xaml">
+    <Page Include="_Pages\_ViewXaml.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
