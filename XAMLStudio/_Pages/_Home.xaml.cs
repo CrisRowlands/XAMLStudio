@@ -93,23 +93,23 @@ namespace XAMLStudio
                 foreach (XSFile xsf in FileManager.Files.Values)
                 {
                     XSPage xspi = new XSPage();
-                    xspi.Load(xsf.FileName, xsf.ScreenShot, DeleteRefresh);
+                    xspi.Load(xsf.FileName, xsf.ScreenShot);
                     stk_files.Children.Add(xspi);
                 }
 
                 if (IsNew)
                 {
-                    DispatcherTimer dt = new DispatcherTimer
+                    DispatcherTimer GoToNewFileTimer = new DispatcherTimer
                     {
                         Interval = new TimeSpan(0, 0, 0, 0, 200)
                     };
-                    dt.Tick += dt_Tick;
-                    dt.Start();
+                    GoToNewFileTimer.Tick += GoToNewFileTick;
+                    GoToNewFileTimer.Start();
                 }
             }
         }
 
-        private void dt_Tick(object sender, EventArgs e)
+        private void GoToNewFileTick(object sender, EventArgs e)
         {
             (sender as DispatcherTimer).Stop();
             scroll_files.ScrollToHorizontalOffset(scroll_files.ScrollableWidth);
@@ -144,21 +144,6 @@ namespace XAMLStudio
 
                 return FadeOutStoryboard;
             }
-        }
-
-        private void DeleteRefresh(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            DispatcherTimer dt = new DispatcherTimer
-            {
-                Interval = new TimeSpan(0, 0, 0, 0, 300)
-            };
-            dt.Tick += deleteTick;
-            dt.Start();
-        }
-        private void deleteTick(object sender, EventArgs e)
-        {
-            (sender as DispatcherTimer).Stop();
-            LoadFiles();
         }
 
         #endregion

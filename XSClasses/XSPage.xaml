@@ -27,16 +27,6 @@
                    HorizontalAlignment="Left"
                    Grid.Row="1" 
                    Foreground="{StaticResource PhoneForegroundBrush}" />
-        
-        <telerikPrimitives:RadContextMenu.ContextMenu>
-            <telerikPrimitives:RadContextMenu x:Name="Context_Menu"
-                                              IsFadeEnabled="True"
-                                              IsZoomEnabled="False">
-                <telerikPrimitives:RadContextMenuItem Content="Pin" 
-                                                      Tap="PinClick"/>
-            </telerikPrimitives:RadContextMenu>
-        </telerikPrimitives:RadContextMenu.ContextMenu>
-
     </Grid>
 
 </UserControl>
