@@ -4,46 +4,40 @@ using System.Text.RegularExpressions;
 
 namespace XSClasses
 {
-    //public class CXMLProperty
-    //{
-    //    public CXMLProperty(string name, string html)
-    //    {
-    //        PropertyName = name;
-    //        OriginalString = html;
-    //        PropertyValue = CXMLHelper.GetProperty(name, html);
-    //    }
+    public class CXMLProperty
+    {
+        public CXMLProperty(string name, string html, int position)
+        {
+            PropertyName = name;
+            OriginalString = html;
+            PropertyValue = C_Helper.GetProperty(name, html);
+            PropertyPosition = position;
+        }
 
-    //    public string OriginalString { get; private set; }
-    //    public string PropertyName { get; private set; }
-    //    public string PropertyValue { get; private set; }
-    //}
+        public string OriginalString { get; private set; }
+        public string PropertyName { get; private set; }
+        public string PropertyValue { get; private set; }
+        public int PropertyPosition { get; private set; }
+    }
 
     public class C_Element
     {
-        public C_Element(string name, string html, C_ElementType tagtype)
+        public C_Element(string name, string html, C_ElementType tagtype, int position)
         {
             ElementName = name;
             OriginalString = html;
             ElementType = tagtype;
+            ElementPosition = position;
+
+            // Properties = new List<CXMLProperty>();
         }
 
-        public string OriginalString
-        {
-            get;
-            private set;
-        }
-        public string ElementName
-        {
-            get;
-            private set;
-        }
-        public C_ElementType ElementType
-        {
-            get;
-            private set;
-        }
+        public string OriginalString { get; private set; }
+        public string ElementName { get; private set; }
+        public C_ElementType ElementType { get; private set; }
+        public int ElementPosition { get; private set; }
 
-        //public List<CXMLProperty> Properties { get; private set; }
+        public List<CXMLProperty> Properties { get; private set; }
     }
 
     public class C_Document
@@ -51,9 +45,12 @@ namespace XSClasses
         public C_Document Parse(string html)
         {
             List<C_Element> elementList = new List<C_Element>();
+            int PositionCounter = -1;
 
             foreach (char c in html.ToCharArray())
             {
+                PositionCounter++;
+
                 #region START OF TAG
 
                 if (c == '<')
@@ -62,7 +59,7 @@ namespace XSClasses
 
                     if (TextString.Trim().Length != 0)
                     {
-                        elementList.Add(new C_Element("Content", TextString, C_ElementType.text));
+                        elementList.Add(new C_Element("Content", TextString, C_ElementType.text, PositionCounter));
                         TextString = string.Empty;
                     }
 
@@ -80,7 +77,7 @@ namespace XSClasses
 
                     if (TagString.Length != 0)
                     {
-                        elementList.Add(new C_Element(C_Helper.GetTag(TagString), TagString, C_ElementType.tag));
+                        elementList.Add(new C_Element(C_Helper.GetTag(TagString), TagString, C_ElementType.tag, PositionCounter));
                         TagString = string.Empty;
                     }
 
@@ -109,22 +106,12 @@ namespace XSClasses
                 OriginalString = html,
             };
         }
-        public List<C_Element> Elements
-        {
-            get;
-            private set;
-        }
-        public string OriginalString
-        {
-            get;
-            private set;
-        }
+        public List<C_Element> Elements { get; private set; }
+        public string OriginalString { get; private set; }
 
-        #region VARS
         private bool InsideTag = false;
         private string TextString = string.Empty;
         private string TagString = string.Empty;
-        #endregion
     }
 
     public static class C_Helper
