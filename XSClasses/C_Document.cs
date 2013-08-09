@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace XSClasses
 {
-    public class CXMLProperty
+    public class C_Property
     {
-        public CXMLProperty(string name, string html, int position)
+        public C_Property(string name, string html, int position)
         {
             PropertyName = name;
             OriginalString = html;
@@ -28,8 +28,7 @@ namespace XSClasses
             OriginalString = html;
             ElementType = tagtype;
             ElementPosition = position;
-
-            // Properties = new List<CXMLProperty>();
+            Properties = C_Helper.GetProperties(html);
         }
 
         public string OriginalString { get; private set; }
@@ -37,7 +36,7 @@ namespace XSClasses
         public C_ElementType ElementType { get; private set; }
         public int ElementPosition { get; private set; }
 
-        public List<CXMLProperty> Properties { get; private set; }
+        public List<C_Property> Properties { get; private set; }
     }
 
     public class C_Document
@@ -192,6 +191,18 @@ namespace XSClasses
             catch
             {
                 return html;
+            }
+        }
+        public static List<C_Property> GetProperties(string html)
+        {
+
+            if (html.Contains("="))
+            {
+                return new List<C_Property>();
+            }
+            else
+            {
+                return new List<C_Property>();
             }
         }
     }

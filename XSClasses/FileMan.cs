@@ -138,25 +138,19 @@ namespace XSClasses
 
     public class XSFile
     {
-        public string FileName
-        {
-            get;
-            set;
-        }
-        public string XAML
-        {
-            get;
-            set;
-        }
-        public string BaseTemplate
-        {
-            get;
-            set;
-        }
+        public string FileName { get; set; }
+        public string XAML { get; set; }
+        public string BaseTemplate { get; set; }
         public BitmapImage ScreenShot
         {
             get
             {
+                if (FileName == null || FileName.Trim() == string.Empty)
+                {
+                    MessageBox.Show("Failed to fetch a screenshot.\nSorry.", "Error.", MessageBoxButton.OK);
+                    return null;
+                }
+
                 BitmapImage bitmapImage = new BitmapImage();
 
                 using (IsolatedStorageFileStream fileStream = IsolatedStorageFile.GetUserStoreForApplication().OpenFile("Shared\\ShellContent\\" + FileName + ".jpg", FileMode.Open, FileAccess.Read))
