@@ -25,6 +25,8 @@ namespace XSClasses
             }
         }
 
+        #region MAIN
+
         public XSPage()
         {
             InitializeComponent();
@@ -33,13 +35,12 @@ namespace XSClasses
             this.Tap += XSPage_Tap;
             Resize();
         }
-
-        private void XSPage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        public void Load(string name, BitmapImage screenshot)
         {
-            if (TxtBlock_Name.Text != null || TxtBlock_Name.Text != string.Empty)
-            {
-                CurrentPage.NavigationService.Navigate(new Uri("/_Pages/_Editor.xaml?p=" + TxtBlock_Name.Text, UriKind.Relative));
-            }
+            this.TxtBlock_Name.Text = name;
+            this.Img_Screenshot.Source = screenshot;
+
+            AnimateIn.Begin();
         }
         private void XSPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -58,11 +59,14 @@ namespace XSClasses
                 CurrentPage.OrientationChanged -= CurrentPage_OrientationChanged;
             }
         }
+
+        #endregion
+        #region ROTATION
+
         private void CurrentPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
             Resize();
         }
-
         private void Resize()
         {
             if (CurrentPage == null)
@@ -81,14 +85,16 @@ namespace XSClasses
                 this.Height = 410;
             }
         }
-        public void Load(string name, BitmapImage screenshot)
+
+        #endregion
+
+        private void XSPage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            this.TxtBlock_Name.Text = name;
-            this.Img_Screenshot.Source = screenshot;
-
-            AnimateIn.Begin();
+            if (TxtBlock_Name.Text != null || TxtBlock_Name.Text != string.Empty)
+            {
+                CurrentPage.NavigationService.Navigate(new Uri("/_Pages/_Editor.xaml?p=" + TxtBlock_Name.Text, UriKind.Relative));
+            }
         }
-
         private Storyboard AnimateIn
         {
             get
