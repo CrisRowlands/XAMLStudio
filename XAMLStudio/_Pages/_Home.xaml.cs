@@ -75,7 +75,7 @@ namespace XAMLStudio
         #endregion
         #region FILES
 
-        private void LoadFiles(bool IsNew = false)
+        private void LoadFiles()
         {
             stk_files.Children.Clear();
 
@@ -96,23 +96,7 @@ namespace XAMLStudio
                     xspi.Load(xsf.FileName, xsf.ScreenShot);
                     stk_files.Children.Add(xspi);
                 }
-
-                if (IsNew)
-                {
-                    DispatcherTimer GoToNewFileTimer = new DispatcherTimer
-                    {
-                        Interval = new TimeSpan(0, 0, 0, 0, 200)
-                    };
-                    GoToNewFileTimer.Tick += GoToNewFileTick;
-                    GoToNewFileTimer.Start();
-                }
             }
-        }
-
-        private void GoToNewFileTick(object sender, EventArgs e)
-        {
-            (sender as DispatcherTimer).Stop();
-            scroll_files.ScrollToHorizontalOffset(scroll_files.ScrollableWidth);
         }
         private Storyboard FadeTextOut
         {
@@ -126,7 +110,7 @@ namespace XAMLStudio
                 FadeText.KeyFrames.Add(new EasingDoubleKeyFrame
                 {
                     KeyTime = new TimeSpan(0),
-                    Value = 1
+                    Value = txt_nofiles.Opacity
                 });
 
                 FadeText.KeyFrames.Add(new EasingDoubleKeyFrame
@@ -289,7 +273,7 @@ namespace XAMLStudio
             FadeBackgroundOut.Begin();
             AnimateNameOut.Begin();
             AnimateTemplateOut.Begin();
-            LoadFiles(true);
+            LoadFiles();
         }
 
         #region ANIMATION

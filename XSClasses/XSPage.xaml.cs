@@ -2,7 +2,6 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace XSClasses
@@ -39,8 +38,6 @@ namespace XSClasses
         {
             this.TxtBlock_Name.Text = name;
             this.Img_Screenshot.Source = screenshot;
-
-            AnimateIn.Begin();
         }
         private void XSPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -93,37 +90,6 @@ namespace XSClasses
             if (TxtBlock_Name.Text != null || TxtBlock_Name.Text != string.Empty)
             {
                 CurrentPage.NavigationService.Navigate(new Uri("/_Pages/_Editor.xaml?p=" + TxtBlock_Name.Text, UriKind.Relative));
-            }
-        }
-        private Storyboard AnimateIn
-        {
-            get
-            {
-                DoubleAnimationUsingKeyFrames FadeIn = new DoubleAnimationUsingKeyFrames();
-
-                Storyboard.SetTarget(FadeIn, this);
-                Storyboard.SetTargetProperty(FadeIn, new PropertyPath("UIElement.Opacity"));
-
-                FadeIn.KeyFrames.Add(new EasingDoubleKeyFrame
-                {
-                    KeyTime = new TimeSpan(0),
-                    Value = 0
-                });
-
-                FadeIn.KeyFrames.Add(new EasingDoubleKeyFrame
-                {
-                    KeyTime = new TimeSpan(0, 0, 0, 0, 600),
-                    Value = 1,
-                    EasingFunction = new PowerEase
-                    {
-                        EasingMode = EasingMode.EaseIn
-                    }
-                });
-
-                Storyboard FadeInStoryboard = new Storyboard();
-                FadeInStoryboard.Children.Add(FadeIn);
-
-                return FadeInStoryboard;
             }
         }
     }

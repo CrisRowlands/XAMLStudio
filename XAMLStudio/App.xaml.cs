@@ -7,19 +7,52 @@ namespace XAMLStudio
 {
     public partial class App : Application
     {
-        #region VARS
-
-        private bool IsInitialized = false;
-        public static RadPhoneApplicationFrame RootFrame
+        public App()
         {
-            get;
-            private set;
+            UnhandledException += AppException;
+            InitializeComponent();
+            InitApp();
+        }
+        private void InitApp()
+        {
+            if (HasAppInit)
+            {
+                return;
+            }
+            RootFrame = new RadPhoneApplicationFrame();
+            RootFrame.Navigated += CompleteInit;
+            RootFrame.NavigationFailed += NavigationFailed;
+            HasAppInit = true;
+        }
+        private void CompleteInit(object sender, NavigationEventArgs e)
+        {
+            if (RootVisual != RootFrame)
+            {
+                RootVisual = RootFrame;
+            }
+            RootFrame.Navigated -= CompleteInit;
         }
 
-        #endregion
+        private bool HasAppInit = false;
+        public static RadPhoneApplicationFrame RootFrame { get; private set; }
+        private RadDiagnostics Diagnostics = new RadDiagnostics
+        {
+            EmailTo = "CrisRowlandsDesign@Live.com",
+            ApplicationName = "TouchMeQuick",
+            EmailSubject = "TouchMeQuick Error report."
+        };
 
-        #region ERRORS
-
+        private void App_Activated(object sender, Microsoft.Phone.Shell.ActivatedEventArgs e)
+        {
+            if (!e.IsApplicationInstancePreserved)
+            {
+                ApplicationUsageHelper.OnApplicationActivated();
+            }
+        }
+        private void App_Launching(object sender, Microsoft.Phone.Shell.LaunchingEventArgs e)
+        {
+            ApplicationUsageHelper.Init("2.5.0.0");
+        }
         private void NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             if (Debugger.IsAttached)
@@ -34,37 +67,5 @@ namespace XAMLStudio
                 Debugger.Break();
             }
         }
-
-        #endregion
-
-        #region INIT
-
-        public App()
-        {
-            UnhandledException += AppException;
-            InitializeComponent();
-            InitApp();
-        }
-        private void InitApp()
-        {
-            if (IsInitialized)
-            {
-                return;
-            }
-            RootFrame = new RadPhoneApplicationFrame();
-            RootFrame.Navigated += InitComplete;
-            RootFrame.NavigationFailed += NavigationFailed;
-            IsInitialized = true;
-        }
-        private void InitComplete(object sender, NavigationEventArgs e)
-        {
-            if (RootVisual != RootFrame)
-            {
-                RootVisual = RootFrame;
-            }
-            RootFrame.Navigated -= InitComplete;
-        }
-
-        #endregion
     }
 }

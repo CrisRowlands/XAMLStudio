@@ -10,12 +10,8 @@ namespace XAMLStudio._Pages
 {
     public partial class _Editor_ : PhoneApplicationPage
     {
-        #region VARS
-
         public static string _Page_Name;
         public static string _Page_XAML;
-
-        #endregion
 
         #region MAIN
 
@@ -37,7 +33,6 @@ namespace XAMLStudio._Pages
 
                 NavigationContext.QueryString.Clear();
             }
-
         }
         private void _Editor_Loaded(object sender, RoutedEventArgs e)
         {
@@ -55,6 +50,8 @@ namespace XAMLStudio._Pages
 
         #endregion
 
+        #region RENDERING
+
         private void _Build_Page()
         {
             try
@@ -69,6 +66,8 @@ namespace XAMLStudio._Pages
                 MessageBox.Show("Failed to parse/display the xaml.\n\nError message: " + ex.Message, "Error", MessageBoxButton.OK);
             }
         }
+
+        #endregion
 
         #region SHOW / HIDE MENU
 
@@ -150,6 +149,26 @@ namespace XAMLStudio._Pages
             _Editor_Grid.Visibility = System.Windows.Visibility.Collapsed;
         }
 
+        #endregion
+
+        #region MENU BUTTONS
+
+        private void del_click(object sender, RoutedEventArgs e)
+        {
+            FileManager.DeleteFile(_Page_Name);
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
+        private void view_click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/_Pages/_ViewXaml.xaml?p=" + _Page_Name, UriKind.Relative));
+        }
+        private void pin_click(object sender, RoutedEventArgs e)
+        {
+            PinManager.PinPage(_Page_Name);
+        }
         #endregion
     }
 }

@@ -3,7 +3,7 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             SupportedOrientations="PortraitOrLandscape">
-    
+
     <Grid>
 
         <Grid x:Name="Base_Grid_"
@@ -18,6 +18,11 @@
 
             <Rectangle Opacity="0.5"
                        Fill="{StaticResource PhoneAccentBrush}" />
+            <StackPanel>
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Click="del_click">delete</Button>
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Click="view_click">view</Button>
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Click="pin_click">pin</Button>
+            </StackPanel>
 
             <Button x:Name="btn_close_menu"
                     VerticalAlignment="Bottom"
